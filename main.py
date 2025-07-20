@@ -54,7 +54,7 @@ async def execute_command( request: Request, command: str | None = None):
 
     return {"stdout": stdout, "stderr": stderr}
 
-
+# test SAST PR Scan
 @app.post("/api/import_spellbook")
 async def import_spellbook(spellbook: YAMLSpellbook):
     try:
