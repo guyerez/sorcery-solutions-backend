@@ -65,6 +65,7 @@ async def execute_command( request: Request, command: str | None = None):
     stdout = process.stdout.read().decode()
     stderr = process.stderr.read().decode()
 
+    
     return {"stdout": stdout, "stderr": stderr}
 
 @app.post("/api/import_spellbook")
