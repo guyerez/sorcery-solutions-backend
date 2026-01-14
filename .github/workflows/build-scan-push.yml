@@ -24,8 +24,15 @@ jobs:
  #            image: ${{ vars.IMAGE_REGISTRY }}/${{ vars.IMAGE_NAME }}:${{ vars.IMAGE_TAG }}
 
      steps:
-       - name: Checkout
-         uses: actions/checkout@v4
+         - name: Check PR title (vulnerable)
+           run: |
+              if [[ "${{ github.event.pull_request.title }}" =~ ^octocat ]]; then
+              echo "PR title starts with 'octocat'"
+              exit 0
+              else
+              echo "PR title did not start with 'octocat'"
+              exit 1
+              fi
 
       # - name: Set up Docker Buildx
         # uses: docker/setup-buildx-action@v3
